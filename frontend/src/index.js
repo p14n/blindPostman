@@ -1,4 +1,3 @@
-import $ from 'jquery';
 var AES = require("crypto-js/aes");
 
 document.querySelector('.upload-btn').addEventListener('click', function (){
@@ -14,6 +13,7 @@ document.querySelector('#upload-input').addEventListener('change', function(){
   var files = this.files;
 
   if (files.length > 0){
+
     // create a FormData object which will be sent as the data payload in the
     // AJAX request
 
@@ -34,21 +34,10 @@ document.querySelector('#upload-input').addEventListener('change', function(){
         // add the files to formData object for the data payload
         formData.append('uploads[]', encryptedFile, encryptedFile.name);
 
-        $.ajax({
-          url: '/upload',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          success: function(data){
-              console.log('upload successful!\n' + data);
-          },
-          xhr: function() {
-            // create an XMLHttpRequest
-            var xhr = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
+        request.open('POST', '/upload', true);
 
-            // listen to the 'progress' event
-            xhr.upload.addEventListener('progress', function(evt) {
+            request.upload.addEventListener('progress', function(evt) {
 
               if (evt.lengthComputable) {
                 // calculate the percentage of upload completed
@@ -56,6 +45,7 @@ document.querySelector('#upload-input').addEventListener('change', function(){
                 percentComplete = parseInt(percentComplete * 100);
 
                 // update the Bootstrap progress bar with the new percentage
+                console.log(percentComplete);
                 document.querySelector('.progress-bar').textContent = percentComplete + '%';
                 document.querySelector('.progress-bar').style.width = percentComplete + '%';
 
@@ -68,16 +58,27 @@ document.querySelector('#upload-input').addEventListener('change', function(){
 
             }, false);
 
-            return xhr;
+
+        request.onload = function() {
+          if (this.status >= 200 && this.status < 400) {
+            // Success!
+            console.log('upload successful!\n' + this.response);
+          } else {
+            console.log('upload failed - ' + this.status + '\n' + this.response);
           }
-        });
+        };
+
+        request.onerror = function() {
+            console.log('upload failed ' + this);
+        };
+
+        request.send(formData);
 
       }
 
       reader.readAsDataURL(file);
 
     }
-
 
   }
 });

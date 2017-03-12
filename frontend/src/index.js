@@ -1,16 +1,17 @@
 import $ from 'jquery';
 var AES = require("crypto-js/aes");
 
-$('.upload-btn').on('click', function (){
-    $('#upload-input').click();
-    $('.progress-bar').text('0%');
-    $('.progress-bar').width('0%');
+document.querySelector('.upload-btn').addEventListener('click', function (){
+
+    document.querySelector('#upload-input').click();
+    document.querySelector('.progress-bar').textContent = '0%';
+    document.querySelector('.progress-bar').style.width = '0%';
+
 });
 
-$('#upload-input').on('change', function(){
+document.querySelector('#upload-input').addEventListener('change', function(){
 
-  var files = $(this).get(0).files;
-
+  var files = this.files;
 
   if (files.length > 0){
     // create a FormData object which will be sent as the data payload in the
@@ -55,12 +56,12 @@ $('#upload-input').on('change', function(){
                 percentComplete = parseInt(percentComplete * 100);
 
                 // update the Bootstrap progress bar with the new percentage
-                $('.progress-bar').text(percentComplete + '%');
-                $('.progress-bar').width(percentComplete + '%');
+                document.querySelector('.progress-bar').textContent = percentComplete + '%';
+                document.querySelector('.progress-bar').style.width = percentComplete + '%';
 
                 // once the upload reaches 100%, set the progress bar text to done
                 if (percentComplete === 100) {
-                  $('.progress-bar').html('Done');
+                  document.querySelector('.progress-bar').innerHTML = 'Done';
                 }
 
               }

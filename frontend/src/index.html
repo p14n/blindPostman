@@ -10,10 +10,36 @@
 		</style>
 	</head>
 	<body>
-		<div class="progress">
-			<div class="progress-bar" role="progressbar"></div>
-		</div>
-		<button class="btn btn-lg upload-btn" type="button">Upload File</button>
 		<input id="upload-input" type="file" name="uploads">
+
+
+
+		<!-- The above form looks like this -->
+		<div class="container">
+<form>
+  <div class="row">
+    <div class="six columns">
+      <label for="exampleEmailInput">Recipient email</label>
+      <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
+    </div>
+    <div class="six columns">
+      <label for="examplePhoneInput">Recipient phone</label>
+      <input class="u-full-width" type="email" placeholder="07777666555" id="examplePhoneInput">
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+	  <button class="button-primary upload-btn" type="button">Upload File</button>
+    </div>
+    <div class="progress three columns">
+  		<div class="progress-bar" role="progressbar"></div>
+	 </div>
+  </div>
+</form>
+</div>
+
+<!-- Always wrap checkbox and radio inputs in a label and use a <span class="label-body"> inside of it -->
+
+<!-- Note: The class .u-full-width is just a utility class shorthand for width: 100% -->
 	</body>
 </html>

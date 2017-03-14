@@ -14,6 +14,10 @@ module.exports = {
             [ 'es2015', { modules: false } ] 
           ] 
         }
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   },

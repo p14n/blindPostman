@@ -1,5 +1,6 @@
 import PubSub from "pubsub-js";
 import {upload} from "./uploader";
+import css from 'skeleton-css-webpack';
 
 const q = (sel) => document.querySelector(sel);
 
